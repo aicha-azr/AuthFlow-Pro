@@ -9,9 +9,12 @@
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
-    "private": true,
-    "workspaces": [
-      "client",
-      "server"
-    ]
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "dependencies": {
+    "dotenv": "^16.4.1"
+  }
 }
