@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently \"yarn workspace client start\" \"yarn workspace server start\""
+    "start": "concurrently \"cd client && yarn dev\" \"cd server && yarn start\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
