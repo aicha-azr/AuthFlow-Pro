@@ -10,11 +10,12 @@ const { User, Role } = require('./schema/Schemas'); // Importer à la fois User 
 app.use(cookieParser());
 app.use(express.json());
 const bodyParser = require('body-parser'); // Importer bodyParser
+const routerRole = require('./router/RoleRouters');
 app.use(bodyParser.json()); // Pour parser les requêtes JSON
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', router);
-
+app.use('/', routerRole);
 const createUser = async () => {
   try {
     await connection; // Attendez que la connexion soit établie
