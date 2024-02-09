@@ -7,8 +7,9 @@ const roleSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  permissions: [{
-    type: String
+  permissions:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Permission"
   }]
 });
 
@@ -33,8 +34,16 @@ const userSchema = new mongoose.Schema({
   }
 });
 
+const permissionSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true,
+    required: true
+  }
+})
+
 // Create models
 const Role = mongoose.model('Role', roleSchema);
 const User = mongoose.model('User', userSchema);
-
-module.exports = { User, Role };
+const Permission = mongoose.model('Permission', permissionSchema);
+module.exports = { User, Role, Permission};

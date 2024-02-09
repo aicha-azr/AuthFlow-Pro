@@ -11,11 +11,13 @@ app.use(cookieParser());
 app.use(express.json());
 const bodyParser = require('body-parser'); // Importer bodyParser
 const routerRole = require('./router/RoleRouters');
+const routerPermission = require('./router/PermissionRouters');
 app.use(bodyParser.json()); // Pour parser les requêtes JSON
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', router);
 app.use('/', routerRole);
+app.use('/', routerPermission);
 const createUser = async () => {
   try {
     await connection; // Attendez que la connexion soit établie
