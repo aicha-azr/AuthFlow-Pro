@@ -27,10 +27,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  roles: [{
+  role: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Role'
-  }]
+  }
 });
 
 // Create models
