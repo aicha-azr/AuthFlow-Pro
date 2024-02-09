@@ -5,7 +5,7 @@ const { SECRET_KEY } = process.env;
 function generateToken(user) {
     const payload = {
       sub: user._id,
-      name: user.name,
+      username: user.username,
       email: user.email
     };
     const secretKey = SECRET_KEY; // Assurez-vous que SECRET_KEY est défini correctement

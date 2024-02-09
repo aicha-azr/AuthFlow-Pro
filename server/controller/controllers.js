@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const {User} = require('../schema/Schemas');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const generateToken = require('../middleware/generateToken')
-
+const generateToken = require('../middleware/generateToken');
 const Controller = {
   signup: async (req, res) => {
     try {
@@ -80,7 +79,7 @@ const Controller = {
       console.error('Erreur lors de l\'authentification:', error);
       res.status(500).json({ message: 'Erreur lors de l\'authentification' });
     }
-  }  
+  }
 }
 
 module.exports = Controller;

@@ -7,6 +7,8 @@ function verifyToken(req, res, next) {
     try {
      const decoded = jwt.verify(token, SECRET_KEY);
      req.userId = decoded.userId;
+     const { username, email } = decoded;
+      res.send(`welcome to master Task \n your username: ${username} \n your email: ${email}`)
      next();
      } catch (error) {
         console.log(error.message);
