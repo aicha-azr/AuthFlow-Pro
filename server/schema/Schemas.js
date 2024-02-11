@@ -30,7 +30,8 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Role'
+    ref: 'Role',
+    default: '65c7e0f8ecec003eb9e23e6d'
   }
 });
 
