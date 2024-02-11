@@ -6,7 +6,8 @@ function generateToken(user) {
     const payload = {
       sub: user._id,
       username: user.username,
-      email: user.email
+      email: user.email,
+      role: user.role
     };
     const secretKey = SECRET_KEY; // Assurez-vous que SECRET_KEY est défini correctement
     const options = {

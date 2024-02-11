@@ -3,7 +3,7 @@ const {Role} = require('../schema/Schemas');
 const Roles = {
     addRole: async (req, res) => {
         try {
-            const { name } = req.body;
+            const { name, permissions } = req.body;
     
             // Vérifier si le rôle existe déjà
             const role = await Role.findOne({ name });
@@ -12,7 +12,7 @@ const Roles = {
             }
     
             // Créer un nouveau rôle
-            const newRole = await Role.create({ name });
+            const newRole = await Role.create({ name, permissions });
             console.log(newRole);
     
             // Envoyer une réponse une fois que le rôle est créé avec succès
@@ -56,7 +56,7 @@ const Roles = {
     updateRole: async (req, res) => {
         try {
             const Oldname = req.params.name;
-            const { name } = req.body;
+            const { name, permissions } = req.body;
     
             // Vérifier si le rôle existe
             const existingRole = await Role.findOne({ name: Oldname });
@@ -65,7 +65,7 @@ const Roles = {
             }
     
             // Mettre à jour le rôle
-            const result = await Role.updateOne({ name: Oldname }, { name: name });
+            const result = await Role.updateOne({ name: Oldname }, { name: name, permissions});
             if (result.nModified < 1) {
                 return res.status(400).send('Le rôle n\'a pas été mis à jour');
             }
