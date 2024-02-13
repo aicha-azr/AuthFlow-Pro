@@ -45,6 +45,7 @@ export const loginUser = (userData) => async (dispatch) => {
     dispatch(loginSuccess(response.data));
   } catch (error) {
     dispatch(loginFailure(error.message));
+    console.log(error)
   }
 };
 
@@ -55,6 +56,7 @@ export const registerUser = (userData) => async (dispatch) => {
     dispatch(registerSuccess(response.data));
   } catch (error) {
     dispatch(registerFailure(error.message));
+    console.log(error)
   }
 };
 

@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose= require('mongoose');
+const cors = require('cors');
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const { PORT } = process.env;
@@ -14,7 +15,7 @@ const routerRole = require('./router/RoleRouters');
 const routerPermission = require('./router/PermissionRouters');
 app.use(bodyParser.json()); // Pour parser les requêtes JSON
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cors());
 app.use('/', router);
 app.use('/', routerRole);
 app.use('/', routerPermission);
