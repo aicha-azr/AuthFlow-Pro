@@ -6,11 +6,7 @@ const roleSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
-  },
-  permissions:[{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Permission"
-  }]
+  }
 });
 
 // Define User Schema
@@ -31,7 +27,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Role',
-    default: '65c7e0f8ecec003eb9e23e6d'
+    default: '668322232efefb0ae1a225d5'
   }
 });
 

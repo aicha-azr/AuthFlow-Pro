@@ -3,7 +3,7 @@ const {Role} = require('../schema/Schemas');
 const Roles = {
     addRole: async (req, res) => {
         try {
-            const { name, permissions } = req.body;
+            const { name} = req.body;
     
             // Vérifier si le rôle existe déjà
             const role = await Role.findOne({ name });
@@ -12,7 +12,7 @@ const Roles = {
             }
     
             // Créer un nouveau rôle
-            const newRole = await Role.create({ name, permissions });
+            const newRole = await Role.create({ name});
             console.log(newRole);
     
             // Envoyer une réponse une fois que le rôle est créé avec succès

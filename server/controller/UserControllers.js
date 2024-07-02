@@ -5,7 +5,7 @@ const saltRounds = 10;
 const users = {
   addUser: async (req, res) => {
     try {
-      const { username, password, email, roles } = req.body;
+      const { username, password, email} = req.body;
 
       const salt = await bcrypt.genSalt(saltRounds);
 
@@ -22,7 +22,7 @@ const users = {
         return res.status(400).json({ message: 'Nom d\'utilisateur ou e-mail déjà utilisé' });
       }
 
-      const newUser = new User({ username: username, password: hashedPassword, email: email, roles: roles });
+      const newUser = new User({ username: username, password: hashedPassword, email: email});
       await newUser.save();
 
       res.status(201).json({ message: 'Compte créé avec succès' });
