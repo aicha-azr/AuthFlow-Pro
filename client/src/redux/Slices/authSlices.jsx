@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signup, login, home } from './AuthThunk';
+import { dashboard, login, signup } from './AuthThunk';
 
 const initialState = {
   userData: null, // Pour stocker les données utilisateur
@@ -44,15 +44,15 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(home.pending, (state) => {
+      .addCase(dashboard.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(home.fulfilled, (state, action) => {
+      .addCase(dashboard.fulfilled, (state, action) => {
         state.loading = false;
         state.homeData = action.payload;
       })
-      .addCase(home.rejected, (state, action) => {
+      .addCase(dashboard.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

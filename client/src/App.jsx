@@ -1,19 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './redux/store';
 import Home from './pages/Home';
+import Dash from './pages/Dashboard';
+import ProtectedRoute from './protectedRoute';
 
 function App() {
   return (
-    <Provider store={store}>
+   
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Ajoutez d'autres routes ici au besoin */}
+          <ProtectedRoute path="/home" component={Dash} />
+        
         </Routes>
       </Router>
-    </Provider>
   );
 }
 

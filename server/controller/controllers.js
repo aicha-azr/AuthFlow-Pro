@@ -83,14 +83,11 @@ const Controller = {
       res.status(500).json({ message: 'Erreur lors de l\'authentification' });
     }
   },
-  home: async(req, res)=>{
-    const token = req.cookies.jwtToken;
-    const decoded = jwt.verify(token, SECRET_KEY);
-    req.userId = decoded.userId;
-    const { username, email } = decoded;
-     res.send(`welcome to master Task \n your username: ${username} \n your email: ${email}`)
-
-}
+  home: async (req, res) => {
+    
+    const { username, email } = req; 
+    res.send(`Welcome to Master Task\nYour username: ${username}\nYour email: ${email}`);
+  }
 }
 
 module.exports = Controller;

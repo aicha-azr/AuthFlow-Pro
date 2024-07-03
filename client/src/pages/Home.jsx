@@ -1,34 +1,45 @@
-import React, { useState } from 'react';
-import auth from '../assets/auth.jpg';
-import Form from "../dry_principe/Form";
-import Input from "../dry_principe/Input";
-import Label from "../dry_principe/Label";
-import Button from '../dry_principe/Buttom';
-import { useDispatch } from 'react-redux';
-import { loginUser, registerUser } from '../redux/authSlice';
+import React, { useEffect, useState } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 import picture from '../assets/picture.png';
+import { login, signup } from '../redux/Slices/AuthThunk';
+import { useNavigate } from 'react-router-dom';
+
 const Home = () => {
+    const nav = useNavigate();
     const [formType, setFormType] = useState('signin');
     const [formData, setFormData] = useState({
         email: '',
         password: '',
         username: ''
     });
+    const [loginData, setLoginData] = useState({
+        email: '',
+        password: '',
+    });
     const dispatch = useDispatch();
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    const { data } = useSelector((state) => state.auth);
+    const handleLogin = (e) => {
+        e.preventDefault();
+        dispatch(login(loginData));
+        console.log(data);
     };
 
-    const handleLogin = () => {
-        dispatch(loginUser(formData));
+    const handleRegister = (e) => {
+        e.preventDefault();
+        dispatch(signup(formData));
     };
+    function goToDash(){
+        if(document.cookie.length != 0){
+           nav('/home') ;
+        }
+        nav('/');
+    }
+    useEffect(()=>{
+        goToDash();
 
-    const handleRegister = () => {
-        dispatch(registerUser(formData));
-    };
-
+    })
+    
     return (
         <>
         <main className="fixed  w-fit md:w-full min-w-full h-[100vh] flex-col p-1 text-white  top-0 left-0 right-0 bg-[#E5E5E5]   lg:overflow-none scroll-smooth z-10">
@@ -42,11 +53,15 @@ const Home = () => {
              <div className="flex flex-col gap-y-[3rem] justify-between mt-[3.5rem]">
                  <div className="flex flex-col">
                      <label htmlFor="email" >Email Address</label>
-                     <input type="text" name="email" className='rounded rounded-full text-black p-3 border border-white bg-transparent focus:outline-none focus:bg-transparent' value={formData.email} onChange={handleInputChange} />
+                     <input type="text" name="email" className='rounded rounded-full text-black p-3 border border-white bg-transparent focus:outline-none focus:bg-transparent' value={loginData.email} onChange={(e)=>{
+                        setLoginData({...loginData, email: e.target.value})
+                     }} />
                  </div>
                  <div className="flex flex-col">
                      <label htmlFor="password">Password</label>
-                     <input type="password" name="password" className='rounded rounded-full text-black p-3 border border-white bg-transparent focus:outline-none' value={formData.password} onChange={handleInputChange} />
+                     <input type="password" name="password" className='rounded rounded-full text-black p-3 border border-white bg-transparent focus:outline-none' value={loginData.password} onChange={(e)=>{
+                        setLoginData({...loginData, password: e.target.value})
+                     }} />
                  </div>
                  <button className='rounded rounded-full text-[#3F8BED] p-3 border border-white bg-white focus:outline-none shadow shadow-md bg-opacity-80' onClick={handleLogin}>Sign in</button>
              </div>
@@ -62,15 +77,18 @@ const Home = () => {
              <div className="flex flex-col gap-y-[1rem] justify-between mt-[3.5rem]">
                  <div className="flex flex-col">
                      <label htmlFor="username" >Username</label>
-                     <input type="text" name="username" className='rounded rounded-full text-black p-3 border border-white bg-transparent focus:outline-none' value={formData.username} onChange={handleInputChange} />
+                     <input type="text" name="username" className='rounded rounded-full text-black p-3 border border-white bg-transparent focus:outline-none' value={formData.username}  onChange={(e)=>{
+                        setFormData({...formData, username: e.target.value})}} />
                  </div>
                  <div className="flex flex-col">
                      <label htmlFor="email" >Email Address </label>
-                     <input type="email" name="email" className='rounded rounded-full text-black p-3 border border-white bg-transparent focus:outline-none' value={formData.email} onChange={handleInputChange} />
+                     <input type="email" name="email" className='rounded rounded-full text-black p-3 border border-white bg-transparent focus:outline-none' value={formData.email} onChange={(e)=>{
+                        setFormData({...formData, email: e.target.value})}}  />
                  </div>
                  <div className="flex flex-col">
                      <label htmlFor="password">Password</label>
-                     <input type="password" name="password" className='rounded rounded-full text-black p-3 border border-white bg-transparent focus:outline-none' value={formData.password} onChange={handleInputChange} />
+                     <input type="password" name="password" className='rounded rounded-full text-black p-3 border border-white bg-transparent focus:outline-none' value={formData.password} onChange={(e)=>{
+                        setFormData({...formData, password: e.target.value})}} />
                  </div>
                  <button className='rounded rounded-full text-[#3F8BED] p-3 border border-white bg-white focus:outline-none shadow shadow-md bg-opacity-80' onClick={handleRegister}>Sign up</button>
              </div>
@@ -84,7 +102,7 @@ const Home = () => {
             <div className='flex flex-col justify-center items-center max-w-[400px] md:relative rounded rounded-2xl z-10'>
                 <h2 className='self-center md:self-start font-bold text-black text-2xl p-1'>Welcome to<b className='text-blue-800'> TaskMaster</b></h2> 
                 <h3 className='self-center md:self-start text-center md:text-start text-[#4C4C4C] font-medium md:absolute top-20 p-1 text-lg'>your ultimate platform for managing tasks effortlessly and achieving your goals with precision!</h3>
-                <img src={picture} width={400} height={200} className='hidden md:block '/>
+                <img src={picture} width={400} height={200} className='hidden md:block'/>
             </div>
             </div>
        <div className='absolute h-[40rem] w-[40rem] left-0 md:top-40 top-0 bg-black z-0 rounded-full rounded-tl-xl bg-gradient-to-r from-[#3F8BED] to-[#7A99F4] blur-md shadow shadow-md lg:top-20'></div>
@@ -96,57 +114,3 @@ const Home = () => {
 
 export default Home;
 
-{ /*<div className='bg-white flex h-screen w-screen  flex-col items-stretch overscroll-none min-h-screen'>
-     <h1 className='text-black mt-[2rem] text-center'><b className="font-bold">MASTER</b>TASK</h1>
-     <div className="flex flex-1 justify-around items-center ml-[20rem] mt-[5rem] mr-[8rem] ">
-         <Form className={formType === 'signin' ? 'block' : 'hidden'}>
-             <div className="flex flex-col items-start text-lg">
-                 <h2 className='text-green-500 text-2xl'>Welcome</h2>
-                 <h4>Enter your username or email and password to sign-in</h4>
-             </div>
-             <div className="flex flex-col gap-y-[3rem] justify-between mt-[3.5rem]">
-                 <div className="flex flex-col">
-                     <Label htmlFor="email" >Email Address or Username</Label>
-                     <Input type="text" name="email" value={formData.email} onChange={handleInputChange} />
-                 </div>
-                 <div className="flex flex-col">
-                     <Label htmlFor="password">Password</Label>
-                     <Input type="password" name="password" value={formData.password} onChange={handleInputChange} />
-                 </div>
-                 <Button className='bg-green-500 py-4 px-6 rounded-lg text-xl' onClick={handleLogin}>Sign in</Button>
-             </div>
-             <div className="p-[2rem]">
-                <div className='text-center'> Don't have an account? <b className='text-green-500 hover:cursor-pointer' onClick={() => setFormType('signup')}>Sign up</b>
-             </div>
-             </div>
-         </Form>
-
-         <Form className={formType === 'signup' ? 'block' : 'hidden'}>
-             <div className="flex flex-col items-start text-lg">
-                 <h2 className='text-green-500 text-2xl'>Join</h2>
-                 <h4>Enter your username, email and password to sign-up</h4>
-             </div>
-             <div className="flex flex-col gap-y-[3rem] justify-between mt-[3.5rem]">
-                 <div className="flex flex-col">
-                     <Label htmlFor="username" >Username</Label>
-                     <Input type="text" name="username" value={formData.username} onChange={handleInputChange} />
-                 </div>
-                 <div className="flex flex-col">
-                     <Label htmlFor="email" >Email Address </Label>
-                     <Input type="email" name="email" value={formData.email} onChange={handleInputChange} />
-                 </div>
-                 <div className="flex flex-col">
-                     <Label htmlFor="password">Password</Label>
-                     <Input type="password" name="password" value={formData.password} onChange={handleInputChange} />
-                 </div>
-                 <Button className='bg-green-500 py-4 px-6 rounded-lg text-xl' onClick={handleRegister}>Sign up</Button>
-             </div>
-             <div className="p-[2rem]">
-                <div className='text-center'> You have an account? <b className='text-green-500 hover:cursor-pointer' onClick={() => setFormType('signin')}>Sign in</b>
-             </div>
-             </div>
-         </Form>
-
-         <img src={auth} alt="" className='w-[776px] h-[656px]' />
-     </div>
- </div>*/}
