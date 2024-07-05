@@ -72,7 +72,9 @@ const Controller = {
       res.cookie('jwtToken', token, { 
         maxAge: 86400 * 1000, // Expires in 1 day (in milliseconds)
         secure: process.env.NODE_ENV === 'production', // Only send cookie over HTTPS in production
-        sameSite: 'strict' // Ensures the cookie is sent only in a first-party context
+        sameSite: 'strict', // Ensures the cookie is sent only in a first-party context
+        withCredentials: true,
+        httpOnly: false,
       });
   
       // Réponse avec succès

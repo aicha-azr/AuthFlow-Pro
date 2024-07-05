@@ -4,9 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import picture from '../assets/picture.png';
 import { login, signup } from '../redux/Slices/AuthThunk';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
+
 
 const Home = () => {
     const nav = useNavigate();
+    const [token, setToken] = useState(null);
+    useEffect(()=>{
+ isAuthenticated();
+    },[token])
+    const isAuthenticated = ()=>{
+        const token = Cookies.get('jwtToken');
+        setToken(token);
+        return token? nav('/home'): null;
+    }
     const [formType, setFormType] = useState('signin');
     const [formData, setFormData] = useState({
         email: '',
@@ -22,24 +34,14 @@ const Home = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         dispatch(login(loginData));
-        console.log(data);
+       
     };
 
     const handleRegister = (e) => {
         e.preventDefault();
         dispatch(signup(formData));
     };
-    function goToDash(){
-        if(document.cookie.length != 0){
-           nav('/home') ;
-        }
-        nav('/');
-    }
-    useEffect(()=>{
-        goToDash();
-
-    })
-    
+ 
     return (
         <>
         <main className="fixed  w-fit md:w-full min-w-full h-[100vh] flex-col p-1 text-white  top-0 left-0 right-0 bg-[#E5E5E5]   lg:overflow-none scroll-smooth z-10">

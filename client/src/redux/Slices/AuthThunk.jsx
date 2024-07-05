@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import api from '../../api';
 
 // Function to set a cookie
 function setCookie(name, value, days) {
@@ -63,7 +64,7 @@ export const dashboard = createAsyncThunk(
     '/home',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get('http://localhost:8080/home');
+            const response = await api.get('http://localhost:8080/home');
             console.log(response.data);
             return response.data;
         } catch (error) {

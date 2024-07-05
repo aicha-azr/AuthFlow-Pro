@@ -6,14 +6,14 @@ import ProtectedRoute from './protectedRoute';
 
 function App() {
   return (
-   
-      <Router>
-        <Routes>
+    <Router>
+      <Routes>
           <Route path="/" element={<Home />} />
-          <ProtectedRoute path="/home" component={Dash} />
-        
-        </Routes>
-      </Router>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<Dash />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

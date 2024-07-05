@@ -1,22 +1,16 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const isAuthenticated = () => {
-  const token = localStorage.getItem('token');
+  const token = Cookies.get('jwtToken');
+  //console.log(token);
   return token ? true : false;
 };
 
-const ProtectedRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      isAuthenticated() ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to="/" />
-      )
-    }
-  />
-);
+const ProtectedRoute = () => {
+  //console.log('Is Authenticated:');
+  return isAuthenticated() ? <Outlet /> : <Navigate to="/" />;
+};
 
 export default ProtectedRoute;
