@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { dashboard } from '../redux/Slices/AuthThunk';
-import axios from 'axios';
 
+import axios from 'axios';
+import { Bounce, Flip, Slide, ToastContainer, Zoom, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Dash = ()=>{
+   
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState('');
     const test =async()=>{
@@ -33,6 +35,10 @@ const Dash = ()=>{
            <p>your email: {email}</p>
 
         </div>
+        <div>
+        <button className='text-black'>Notify !</button>
+        
+      </div>
            </main>
         </>
     )
