@@ -10,15 +10,7 @@ import Cookies from 'js-cookie';
 
 const Home = () => {
     const nav = useNavigate();
-    const [token, setToken] = useState(null);
-    useEffect(()=>{
- isAuthenticated();
-    },[token])
-    const isAuthenticated = ()=>{
-        const token = Cookies.get('jwtToken');
-        setToken(token);
-        return token? nav('/home'): null;
-    }
+    const [token, setToken] = useState(Cookies.get('jwtToken'));
     const [formType, setFormType] = useState('signin');
     const [formData, setFormData] = useState({
         email: '',
@@ -31,17 +23,27 @@ const Home = () => {
     });
     const dispatch = useDispatch();
     const { data } = useSelector((state) => state.auth);
+
+    useEffect(() => {
+        if (token) {
+            nav('/home');
+            window.location.reload();
+        }
+    }, [token, nav]);
+
     const handleLogin = (e) => {
         e.preventDefault();
-        dispatch(login(loginData));
-       
+        dispatch(login(loginData)).then(() => {
+            setToken(Cookies.get('jwtToken'));
+        });
     };
 
     const handleRegister = (e) => {
         e.preventDefault();
-        dispatch(signup(formData));
+        dispatch(signup(formData)).then(() => {
+            setToken(Cookies.get('jwtToken'));
+        });
     };
- 
     return (
         <>
         <main className="fixed  w-fit md:w-full min-w-full h-[100vh] flex-col p-1 text-white  top-0 left-0 right-0 bg-[#E5E5E5]   lg:overflow-none scroll-smooth z-10">
