@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 const isAuthenticated = () => {
   const token = Cookies.get('jwtToken');
   //console.log(token);
+  if(token === undefined || token === null) return false
   return token ? true : false;
 };
 

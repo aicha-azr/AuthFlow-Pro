@@ -60,7 +60,7 @@ export const signup = createAsyncThunk(
       handleSuccess('Account created successfully');
       return response.data;
     } catch (error) {
-      handleError('Failed to create an account');
+      handleError(error);
       return rejectWithValue('Failed to create an account');
     }
   }
